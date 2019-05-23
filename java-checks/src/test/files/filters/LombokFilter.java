@@ -244,6 +244,31 @@ static class UtilityClassWithPublicConstructorCheck {
   }
 }
 
+class LombokVal {
+  boolean s2159(String x) {
+    lombok.val y = "Hello World";
+    return x.equals(y) // NoIssue
+      && x
+      .equals( // NoIssue
+        y);
+  }
+
+  boolean s2159_valid(String x) {
+    Object y = "Hello World";
+    return x.equals(y); // Withissue
+  }
+
+  boolean s2175(java.util.List<String> words) {
+    lombok.val y = "Hello World";
+    return words.contains(y); // NoIssue
+  }
+
+  boolean s2175_valid(java.util.List<String> words) {
+    Integer y = 42;
+    return words.contains(y); // WithIssue
+  }
+}
+
 class PrivateFieldOnlyUsedLocally {
   private PrivateFieldOnlyUsedLocally() {
   }
